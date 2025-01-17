@@ -8,6 +8,8 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import dev.coinroutine.app.core.domain.Result
+import dev.coinroutine.app.core.util.formatFiat
+import dev.coinroutine.app.core.util.formatPercentage
 import kotlinx.coroutines.flow.update
 
 class CoinsListViewModel(
@@ -36,8 +38,8 @@ class CoinsListViewModel(
                                 name = coinItem.coin.name,
                                 iconUrl = coinItem.coin.iconUrl,
                                 symbol = coinItem.coin.symbol,
-                                formattedPrice = coinItem.price.toString(), //TODO: formatFiat(coinItem.price),
-                                formattedChange = coinItem.change.toString(), //TODO: formatPercentage(coinItem.change),
+                                formattedPrice = formatFiat(coinItem.price),
+                                formattedChange = formatPercentage(coinItem.change),
                                 isPositive = coinItem.change >= 0,
                             )
                         }
