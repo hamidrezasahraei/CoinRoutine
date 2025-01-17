@@ -2,6 +2,8 @@ package dev.coinroutine.app.coins.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import coinroutine.composeapp.generated.resources.Res
+import coinroutine.composeapp.generated.resources.error_serialization
 import dev.coinroutine.app.coins.domain.GetCoinsListUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -10,6 +12,7 @@ import kotlinx.coroutines.flow.stateIn
 import dev.coinroutine.app.core.domain.Result
 import dev.coinroutine.app.core.util.formatFiat
 import dev.coinroutine.app.core.util.formatPercentage
+import dev.coinroutine.app.core.util.toUiText
 import kotlinx.coroutines.flow.update
 
 class CoinsListViewModel(
@@ -50,7 +53,7 @@ class CoinsListViewModel(
                 _state.update {
                     it.copy(
                         coins = emptyList(),
-                        error = null //TODO: coinsResponse.error.toUiText()
+                        error = coinsResponse.error.toUiText(),
                     )
                 }
             }
