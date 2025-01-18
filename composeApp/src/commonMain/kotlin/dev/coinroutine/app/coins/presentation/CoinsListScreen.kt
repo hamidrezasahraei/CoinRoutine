@@ -112,7 +112,7 @@ fun CoinsList(
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun CoinListItem(
+private fun CoinListItem(
     coin: UiCoinListItem,
     onCoinLongPressed: (String) -> Unit,
     onCoinClicked: (String) -> Unit,
