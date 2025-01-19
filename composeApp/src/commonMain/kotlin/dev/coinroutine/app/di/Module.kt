@@ -14,6 +14,7 @@ import dev.coinroutine.app.portfolio.data.PortfolioRepositoryImpl
 import dev.coinroutine.app.portfolio.domain.PortfolioRepository
 import dev.coinroutine.app.portfolio.presentation.PortfolioViewModel
 import dev.coinroutine.app.trade.domain.BuyCoinUseCase
+import dev.coinroutine.app.trade.domain.SellCoinUseCase
 import io.ktor.client.HttpClient
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
@@ -58,4 +59,5 @@ val sharedModule = module {
 
     // trade
     singleOf(::BuyCoinUseCase)
+    singleOf(::SellCoinUseCase)
 }
