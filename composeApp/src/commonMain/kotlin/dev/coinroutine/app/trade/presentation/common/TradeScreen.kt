@@ -93,7 +93,10 @@ fun TradeScreen(
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onBackground,
             )
-            // TODO: TEXT FIELD
+            CenteredDollarTextField(
+                amountText = state.amount,
+                onAmountChange = onAmountChange
+            )
             Text(
                 text = state.availableAmount,
                 style = MaterialTheme.typography.labelLarge,
