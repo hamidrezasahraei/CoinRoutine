@@ -23,9 +23,8 @@ class SellViewModel(
     private val getCoinDetailsUseCase: GetCoinDetailsUseCase,
     private val portfolioRepository: PortfolioRepository,
     private val sellCoinUseCase: SellCoinUseCase,
+    private val coinId: String,
 ): ViewModel() {
-
-    private val tempCoinId = "1" // TODO: will be removed
 
     private val _amount = MutableStateFlow("")
     private val _state = MutableStateFlow(TradeState())
@@ -37,7 +36,7 @@ class SellViewModel(
             amount = amount
         )
     }.onStart {
-        when(val portfolioCoinResponse = portfolioRepository.getPortfolioCoin(tempCoinId)) {
+        when(val portfolioCoinResponse = portfolioRepository.getPortfolioCoin(coinId)) {
             is Result.Success -> {
                 portfolioCoinResponse.data?.ownedAmountInUnit?.let {
                     getCoinDetails(it)
@@ -63,7 +62,7 @@ class SellViewModel(
     }
 
     private suspend fun getCoinDetails(ownedAmountInUnit: Double) {
-        when(val coinResponse = getCoinDetailsUseCase.execute(tempCoinId)) {
+        when(val coinResponse = getCoinDetailsUseCase.execute(coinId)) {
             is Result.Success -> {
                 val availableAmountInFiat = ownedAmountInUnit * coinResponse.data.price
                 _state.update {
