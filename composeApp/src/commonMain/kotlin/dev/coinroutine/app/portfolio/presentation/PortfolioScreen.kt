@@ -180,7 +180,6 @@ private fun PortfolioCoinsList(
                     color = MaterialTheme.colorScheme.onBackground,
                     fontSize = MaterialTheme.typography.titleLarge.fontSize,
                     modifier = Modifier
-                        .weight(1f)
                         .padding(16.dp)
                 )
                 Spacer(modifier = Modifier.height(8.dp))
