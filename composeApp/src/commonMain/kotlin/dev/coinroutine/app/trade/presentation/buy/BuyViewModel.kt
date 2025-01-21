@@ -11,11 +11,13 @@ import dev.coinroutine.app.trade.domain.BuyCoinUseCase
 import dev.coinroutine.app.trade.presentation.common.TradeState
 import dev.coinroutine.app.trade.presentation.common.UiTradeCoinItem
 import dev.coinroutine.app.trade.presentation.mapper.toCoin
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -44,6 +46,9 @@ class BuyViewModel(
         started = SharingStarted.WhileSubscribed(),
         initialValue = TradeState(isLoading = true)
     )
+
+    private val _events = Channel<BuyEvents>(capacity = Channel.BUFFERED)
+    val events = _events.receiveAsFlow()
 
     private suspend fun getCoinDetails(balance: Double) {
         when (val coinResponse = getCoinDetailsUseCase.execute(coinId)) {
@@ -88,7 +93,7 @@ class BuyViewModel(
 
             when(buyCoinResponse) {
                 is Result.Success -> {
-                    // TODO: Navigate to next screen with event
+                    _events.send(BuyEvents.BuySuccess)
                 }
                 is Result.Error -> {
                     _state.update {
@@ -100,6 +105,9 @@ class BuyViewModel(
                 }
             }
         }
-
     }
+}
+
+sealed interface BuyEvents {
+    data object BuySuccess : BuyEvents
 }
