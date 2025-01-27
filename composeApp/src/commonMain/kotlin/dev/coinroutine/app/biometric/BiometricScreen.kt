@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -57,7 +59,13 @@ fun BiometricScreen(
                 fontSize = MaterialTheme.typography.labelSmall.fontSize,
             )
             Spacer(modifier = Modifier.height(64.dp))
-            // TODO Icon
+            Icon(
+                imageVector = BiometricIcon,
+                contentDescription = "Biometric Icon",
+                tint = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.size(64.dp)
+            )
+            Spacer(modifier = Modifier.height(16.dp))
             Button(
                 onClick = {
                     coroutineScope.launch {
