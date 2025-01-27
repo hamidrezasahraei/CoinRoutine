@@ -1,5 +1,10 @@
 package dev.coinroutine.app.biometric
 
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,6 +24,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import dev.coinroutine.app.core.biometric.BiometricAuthNotAvailable
@@ -36,6 +42,19 @@ fun BiometricScreen(
     val biometricAuthenticator = remember { getBiometricAuthenticator(platformContext) }
     val coroutineScope = rememberCoroutineScope()
     var authError by remember { mutableStateOf<String?>(null) }
+
+    val infiniteTransition = rememberInfiniteTransition()
+
+    val scale by infiniteTransition.animateFloat(
+        initialValue = 1f,
+        targetValue = 1.05f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(
+                durationMillis = 500
+            ),
+            repeatMode = RepeatMode.Reverse
+        ),
+    )
 
     Box(
         contentAlignment = Alignment.Center,
@@ -63,7 +82,7 @@ fun BiometricScreen(
                 imageVector = BiometricIcon,
                 contentDescription = "Biometric Icon",
                 tint = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.size(64.dp)
+                modifier = Modifier.size(64.dp).scale(scale)
             )
             Spacer(modifier = Modifier.height(16.dp))
             Button(
