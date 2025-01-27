@@ -17,11 +17,13 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import dev.coinroutine.app.core.biometric.BiometricAuthNotAvailable
 import dev.coinroutine.app.core.biometric.getBiometricAuthenticator
 import dev.coinroutine.app.core.biometric.getPlatformContext
 import dev.coinroutine.app.theme.LocalCoinRoutineColorsPalette
+import dev.coinroutine.app.theme.UbuntuFontFamily
 import kotlinx.coroutines.launch
 
 @Composable
@@ -43,11 +45,16 @@ fun BiometricScreen(
             Text(
                 text = "CoinRoutine",
                 color = MaterialTheme.colorScheme.onBackground,
+                style = TextStyle(
+                    fontFamily = UbuntuFontFamily()
+                ),
+                fontSize = MaterialTheme.typography.displayMedium.fontSize
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = "Powered by Compose Multiplatform",
                 color = MaterialTheme.colorScheme.onBackground,
+                fontSize = MaterialTheme.typography.labelSmall.fontSize,
             )
             Spacer(modifier = Modifier.height(64.dp))
             // TODO Icon
